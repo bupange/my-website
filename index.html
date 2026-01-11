@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!-- 声明文档类型为HTML5 -->
+<html lang="zh-CN">
+<!-- 设置网页语言为简体中文 -->
+<head>
+    <meta charset="UTF-8">
+    <!-- 设置字符编码为UTF-8，避免中文乱码 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 适配移动端，设置视口宽度为设备宽度，初始缩放比例1.0 -->
+    <title>张晓 - 电子商务个人主页</title>
+    <style>
+        /* 全局样式重置与基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 页面整体背景与字体 */
+        body {
+            background-color: #e3f2fd; /* 淡雅浅蓝色背景 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 系统无衬线字体 */
+            padding: 40px 20px; /* 页面上下左右留白 */
+            position: relative; /* 为提示文字定位做准备 */
+        }
+
+        /* 核心卡片容器 */
+        .card-container {
+            max-width: 800px; /* 卡片最大宽度 */
+            margin: 0 auto; /* 水平居中 */
+            background-color: #fff; /* 白色卡片背景 */
+            border-radius: 10px; /* 圆角 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 轻微阴影增加立体感 */
+            padding: 40px; /* 卡片内部内边距 */
+            width: 100%; /* 保证在小屏幕占满宽度 */
+            max-width: 800px;
+        }
+
+        /* 顶部区域样式 */
+        header {
+            margin-bottom: 30px;
+            text-align: center; /* 顶部内容居中 */
+            border-bottom: 1px solid #eee; /* 底部分隔线 */
+            padding-bottom: 20px;
+        }
+
+        /* 头像样式与渐现动画 */
+        .avatar {
+            width: 120px; /* 头像宽度 */
+            height: 120px; /* 头像高度 */
+            border-radius: 50%; /* 圆形头像 */
+            object-fit: cover; /* 保持图片比例 */
+            margin: 0 auto 15px; /* 居中并底部留白 */
+            /* 渐现动画相关 */
+            opacity: 0; /* 初始透明 */
+            transform: translateY(20px); /* 初始向下偏移 */
+            animation: fadeIn 1s ease forwards; /* 绑定渐现动画，1秒完成并保持最终状态 */
+            border: 4px solid #f5f5f5; /* 轻微边框装饰 */
+        }
+
+        /* 定义渐现动画 */
+        @keyframes fadeIn {
+            to {
+                opacity: 1; /* 最终完全不透明 */
+                transform: translateY(0); /* 最终回到原位置 */
+            }
+        }
+
+        h1 {
+            font-size: 38px; /* 姓名大号字体 */
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #666; /* 标语灰色 */
+            font-size: 16px;
+        }
+
+        /* 通用区域样式 */
+        section {
+            margin: 30px 0;
+        }
+
+        h2 {
+            color: #222;
+            margin-bottom: 15px;
+            font-size: 22px;
+            border-left: 4px solid #1976d2; /* 标题左侧蓝色竖线装饰 */
+            padding-left: 10px;
+        }
+
+        p {
+            line-height: 1.6; /* 正文行高 */
+            color: #444;
+            font-size: 16px;
+        }
+
+        /* 技能展示区域 - 标签样式 */
+        .skills-list {
+            list-style: none; /* 去掉默认列表样式 */
+            display: flex; /* 横向排列 */
+            flex-wrap: wrap; /* 自动换行 */
+            gap: 12px; /* 标签之间的间距 */
+        }
+
+        .skills-list li {
+            background-color: #1976d2; /* 深蓝色背景 */
+            color: #fff; /* 白色文字 */
+            padding: 8px 18px;
+            border-radius: 20px; /* 胶囊形状 */
+            font-size: 14px;
+            cursor: pointer; /* 鼠标悬停指针变化 */
+            /* 平滑过渡：包含背景色和缩放，时长0.3秒 */
+            transition: all 0.3s ease; 
+            transform-origin: center; /* 缩放以中心为原点 */
+        }
+
+        /* 技能标签悬停效果：放大+背景色变化 */
+        .skills-list li:hover {
+            background-color: #1565c0; /* 悬停时稍深的蓝色 */
+            transform: scale(1.1); /* 放大1.1倍 */
+        }
+
+        /* 作品展示区域 */
+        .works-container {
+            display: flex; /* 横向排列 */
+            gap: 15px; /* 作品之间的间距 */
+            flex-wrap: wrap; /* 移动端自动换行 */
+        }
+
+        .works-item {
+            width: calc(33.333% - 10px); /* 每个作品占1/3宽度，减去间距 */
+            border: 1px solid #eee; /* 边框 */
+            border-radius: 8px; /* 圆角 */
+            overflow: hidden; /* 裁剪超出部分 */
+        }
+
+        .works-item img {
+            width: 100%; /* 图片宽度自适应 */
+            height: 200px; /* 固定高度 */
+            object-fit: cover; /* 保持图片比例 */
+            display: block; /* 去掉图片底部空白 */
+        }
+
+        /* 底部联系方式 */
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee; /* 顶部分隔线 */
+        }
+
+        /* 联系方式按钮样式 */
+        .contact-btn {
+            background-color: #1976d2; /* 蓝色背景 */
+            color: #fff; /* 白色文字 */
+            border: none; /* 去掉边框 */
+            padding: 10px 24px; /* 内边距 */
+            border-radius: 8px; /* 圆角 */
+            font-size: 16px; /* 字体大小 */
+            cursor: pointer; /* 鼠标悬停指针 */
+            transition: background-color 0.3s ease; /* 过渡动画 */
+        }
+
+        .contact-btn:hover {
+            background-color: #1565c0; /* 悬停加深蓝色 */
+        }
+
+        /* 技能点击提示文字样式 */
+        .skill-tip {
+            position: fixed; /* 固定定位，始终在页面顶部 */
+            top: 20px; /* 距离顶部20px */
+            left: 50%; /* 水平居中 */
+            transform: translateX(-50%); /* 精准居中 */
+            background-color: #4caf50; /* 绿色背景，醒目且友好 */
+            color: #fff; /* 白色文字 */
+            padding: 12px 24px; /* 内边距 */
+            border-radius: 8px; /* 圆角 */
+            font-size: 16px; /* 字体大小 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* 轻微阴影 */
+            opacity: 0; /* 默认隐藏 */
+            transition: opacity 0.3s ease; /* 透明度过渡 */
+            z-index: 9999; /* 确保在最上层 */
+        }
+
+        /* 提示文字显示状态 */
+        .skill-tip.show {
+            opacity: 1; /* 显示 */
+        }
+
+        /* 响应式适配 - 移动端（屏幕<600px） */
+        @media (max-width: 600px) {
+            /* 1. 减小页面左右边距 */
+            body {
+                padding: 20px 10px; /* 上下边距减小，左右边距大幅减小 */
+            }
+
+            /* 2. 主要内容区域占满屏幕宽度 */
+            .card-container {
+                padding: 20px 15px; /* 减小卡片内部内边距 */
+                width: 100%; /* 强制占满屏幕宽度 */
+                margin: 0; /* 去掉自动居中的margin，避免侧边留白 */
+            }
+
+            /* 调整标题字号，适配手机 */
+            h1 {
+                font-size: 32px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 17px; /* 放大正文字号，提升可读性 */
+            }
+
+            /* 3. 技能标签每行显示2个，放大字体 */
+            .skills-list {
+                gap: 15px; /* 增大间距，方便点击 */
+            }
+            .skills-list li {
+                width: calc(50% - 7.5px); /* 每行2个，减去间距的一半 */
+                font-size: 16px; /* 放大字体 */
+                padding: 12px 15px; /* 增大内边距，提升点击区域 */
+                text-align: center; /* 文字居中，视觉更整齐 */
+            }
+
+            /* 作品区域单列显示 */
+            .works-item {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            .works-item img {
+                height: 180px; /* 适当减小图片高度，适配手机 */
+            }
+
+            /* 头像适配手机 */
+            .avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            /* 联系方式按钮适配 */
+            .contact-btn {
+                width: 100%; /* 按钮占满宽度，方便点击 */
+                padding: 12px 0;
+                font-size: 17px;
+            }
+
+            /* 提示文字适配手机 */
+            .skill-tip {
+                width: 90%; /* 提示文字宽度适配手机 */
+                text-align: center;
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 技能点击提示文字容器 -->
+    <div class="skill-tip" id="skillTip"></div>
+
+    <!-- 核心卡片容器 -->
+    <div class="card-container">
+        <!-- 顶部区域：头像、姓名和标语 -->
+        <header>
+            <!-- 头像：使用占位图片，添加渐现动画 -->
+            <img src="https://picsum.photos/120/120?random=10" class="avatar">
+            <h1>张晓</h1>
+            <p>探索·创新·成长</p>
+        </header>
+
+        <!-- 个人简介区域 -->
+        <section id="intro">
+            <h2>个人简介</h2>
+            <p>我是张晓，一名电子商务专业的在校学生。热衷电商行业全链路运营，拥有独立网店运营实操经验，熟悉店铺装修、商品上架及客户维护流程。同时擅长商品摄影，能精准捕捉产品卖点，通过视觉呈现提升商品转化率。始终保持学习热情，力求将专业知识与实践结合，持续成长。</p>
+        </section>
+
+        <!-- 技能展示区域 -->
+        <section id="skills">
+            <h2>技能展示</h2>
+            <ul class="skills-list">
+                <li data-skill="Photoshop" data-years="3">Photoshop：商品图片精修、电商海报设计</li>
+                <li data-skill="视频剪辑" data-years="2">视频剪辑：短视频制作、商品展示视频剪辑</li>
+                <li data-skill="数据分析" data-years="1">数据分析：电商平台数据解读、运营优化分析</li>
+                <li data-skill="网店运营" data-years="2">网店运营：店铺日常管理、营销活动策划执行</li>
+            </ul>
+        </section>
+
+        <!-- 作品展示区域 -->
+        <section id="works">
+            <h2>作品展示</h2>
+            <div class="works-container">
+                <!-- 使用占位图片，尺寸自适应，无alt属性 -->
+                <div class="works-item">
+                    <img src="https://picsum.photos/300/200?random=1">
+                </div>
+                <div class="works-item">
+                    <img src="https://picsum.photos/300/200?random=2">
+                </div>
+                <div class="works-item">
+                    <img src="https://picsum.photos/300/200?random=3">
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部联系方式 -->
+        <footer>
+            <h2>联系方式</h2>
+            <!-- 替换为按钮 -->
+            <button class="contact-btn" id="contactBtn">点击查看联系方式</button>
+        </footer>
+    </div>
+
+    <!-- JavaScript交互代码 -->
+    <script>
+        // ========== 功能1：联系方式弹窗 ==========
+        // 获取联系方式按钮元素
+        const contactBtn = document.getElementById('contactBtn');
+        
+        // 为按钮添加点击事件监听
+        contactBtn.addEventListener('click', function() {
+            // 弹出提示框显示联系方式
+            alert('我的联系方式：邮箱 zhangxiao@email.com | 微信号 zhangxiao_2024');
+        });
+
+        // ========== 功能2：技能点击提示效果 ==========
+        // 获取提示文字容器和所有技能标签
+        const skillTip = document.getElementById('skillTip');
+        const skillItems = document.querySelectorAll('.skills-list li');
+        
+        // 为每个技能标签添加点击事件
+        skillItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 获取自定义属性中的技能名称和经验年限
+                const skillName = this.getAttribute('data-skill');
+                const years = this.getAttribute('data-years');
+                
+                // 设置提示文字内容
+                skillTip.textContent = `你点击了${skillName}技能，我在这方面有${years}年经验`;
+                
+                // 显示提示文字（添加show类）
+                skillTip.classList.add('show');
+                
+                // 3秒后隐藏提示文字（移除show类）
+                setTimeout(() => {
+                    skillTip.classList.remove('show');
+                }, 3000); // 3000毫秒 = 3秒
+            });
+        });
+    </script>
+</body>
+</html>
